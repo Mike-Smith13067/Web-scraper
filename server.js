@@ -14,7 +14,7 @@ var collections = ["articles"];
 //Handlebars package and initiation
 const exhb = require('express-handlebars');
 
- const db = require("./models/");
+const db = require("./models/");
 
 //Initialize Express
 const app = express();
@@ -29,30 +29,30 @@ app.use(express.static("public"));
 mongoose.connect("mongodb://localhost/news", { useNewUrlParser: true });
 
 //Scrape articles from website and insert into mongo database
-app.get("/scrape", function(req, res) {
-    axios.get("https://www.nytimes.com/section/sports").then(function(response) {
-        var $ =cheerio.load(response.data);
-        $("article").each(function(i, element) {
+app.get("/scrape", function (req, res) {
+    axios.get("https://www.nytimes.com/section/sports").then(function (response) {
+        var $ = cheerio.load(response.data);
+        $("article").each(function (i, element) {
             var title = $(element).find("h2").text();
             var summary = $(element).find("p").text();
             var link = $(element).find("a").attr("href");
 
             console.log(title, link);
 
-            if(title && link) {
+            if (title && link) {
                 db.Articles.create({
                     title: title,
                     summary: summary,
                     link: link
                 },
-                function(err, inserted) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    else {
-                        console.log(inserted);
-                    }
-                });
+                    function (err, inserted) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            console.log(inserted);
+                        }
+                    });
             }
         });
     });
@@ -60,8 +60,23 @@ app.get("/scrape", function(req, res) {
     res.send("Scrape complete");
 });
 
+app.get("/Articles", function (req, res) {
+    db.Articles.find({}).then(function (dbArticle) {
+        res.json(dbArticles);
+    }).catch(function (err) {
+        res.json(err);
+    });
+});
+
+app.get("/Articles/:id", function (req, res) {
+
+});
+
+app.post("/Articles/:id", function (req, res) {
+
+});
 
 // Start the server
-app.listen(PORT, function() {
+app.listen(PORT, function () {
     console.log("App running on port " + PORT + "!");
 });
