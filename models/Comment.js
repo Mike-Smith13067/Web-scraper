@@ -7,10 +7,9 @@ var Schema = mongoose.Schema;
 
 var CommentSchema = new Schema ({
     title: String,
-    summary: String,
-    link: String
+    summary: String
 
 });
-var Article = mongoose.model("Article", CommentSchema);
+var Comments = mongoose.model("Comments", CommentSchema);
 
-module.exports = Comment;
+module.exports = Comments;

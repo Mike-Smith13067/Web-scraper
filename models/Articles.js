@@ -8,10 +8,14 @@ var Schema = mongoose.Schema;
 var ArticleSchema = new Schema ({
     title: String,
     summary: String,
-    link: String
+    link: String,
+    comment: {
+        type: Schema.Types.ObjectId,
+        ref: "Comments"
+    }
 
 });
-var Article = mongoose.model("Article", ArticleSchema);
+var Articles = mongoose.model("Article", ArticleSchema);
 
-module.exports = Article;
+module.exports = Articles;
 

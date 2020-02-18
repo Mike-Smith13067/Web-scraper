@@ -2,6 +2,7 @@
 const express = require('express');
 //noSQL database package
 const mongoose = require('mongoose');
+const logger = require("morgan");
 
 //Scraping packages
 const cheerio = require('cheerio');
@@ -19,6 +20,8 @@ const db = require("./models/");
 //Initialize Express
 const app = express();
 
+// Use morgan logger for logging requests//
+app.use(logger("dev"));
 // Set request body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -60,20 +63,43 @@ app.get("/scrape", function (req, res) {
     res.send("Scrape complete");
 });
 
+// ROute to retrieve all articles from the database//
 app.get("/Articles", function (req, res) {
-    db.Articles.find({}).then(function (dbArticle) {
+    db.Articles.find({})
+    .then(function (dbArticles) {
         res.json(dbArticles);
     }).catch(function (err) {
         res.json(err);
     });
 });
 
+//Route to get a specific atricle and associated notes//
 app.get("/Articles/:id", function (req, res) {
-
+    db.Articles.findOne({ _id: req.params.id})
+    .populate("comment")
+    .then(function(dbArticles) {
+        res.json(dbArticles);
+    })
+    .catch(function(err) {
+        res.json(err);
+    });
 });
 
+// Route for Comments
 app.post("/Articles/:id", function (req, res) {
-    db.Articles.update
+    db.Comments.create({
+        title: req.body.title,
+        summary: req.body.summary
+    })
+    .then(function(dbComments) {
+        return db.Articles.findOneAndUpdate({ _id: req.params.id}, {Comment: dbComments_id}, {new: true});
+    })
+    .then(function(dbArticles){
+        res.json(dbArticles);
+    })
+    .catch(function(err) {
+        res.json(err)
+    })
 });
 
 // Start the server
