@@ -7,10 +7,10 @@ $.getJSON("/Articles", function(data) {
     for (var i = 0; i < data.length; i++) {
         var card = `<div class="card" style="width: 18rem;">
         <div class="card-body">
-          <p data-id ="${data[i]._id}"> ${data[i].title}</p>
-          <p data-id ="${data[i]._id}"> ${data[i].summary}</p>
-          <p data-id ="${data[i]._id}"> ${data[i].comment}</p>
-          <a href="${data[i].link}" class="btn btn-primary">${data[i].link}</a>
+          <p data-id = ${data[i]._id}"> Title: ${data[i].title}</p>
+          <p data-id ="${data[i]._id}"> Summary: ${data[i].summary}</p>
+          <p data-id ="${data[i]._id}"> Comment: ${data[i].comment}</p>
+          <a href= ${data[i].link}" class="btn btn-primary">Goto Article</a>
         </div>
       </div>`
       // Display the apropos information on the page
