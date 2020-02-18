@@ -73,7 +73,7 @@ app.get("/Articles/:id", function (req, res) {
 });
 
 app.post("/Articles/:id", function (req, res) {
-
+    db.Articles.update
 });
 
 // Start the server
