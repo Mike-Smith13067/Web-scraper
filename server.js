@@ -63,7 +63,7 @@ app.get("/scrape", function (req, res) {
     res.send("Scrape complete");
 });
 
-// ROute to retrieve all articles from the database//
+// Route to retrieve all articles from the database//
 app.get("/Articles", function (req, res) {
     db.Articles.find({})
     .then(function (dbArticles) {
@@ -76,7 +76,7 @@ app.get("/Articles", function (req, res) {
 //Route to get a specific atricle and associated notes//
 app.get("/Articles/:id", function (req, res) {
     db.Articles.findOne({ _id: req.params.id})
-    .populate("comment")
+    .populate("comments")
     .then(function(dbArticles) {
         res.json(dbArticles);
     })
@@ -92,14 +92,18 @@ app.post("/Articles/:id", function (req, res) {
         summary: req.body.summary
     })
     .then(function(dbComments) {
-        return db.Articles.findOneAndUpdate({ _id: req.params.id}, {Comment: dbComments_id}, {new: true});
+        console.log("comment iD" + dbComments._id);
+        return db.Articles.findOneAndUpdate({ _id: req.params.id}, {$set: {Comment: dbComments._id}}, {new: true});
     })
     .then(function(dbArticles){
+        console.log ("article" + dbArticles);
         res.json(dbArticles);
     })
+    
     .catch(function(err) {
         res.json(err)
     })
+   
 });
 
 // Start the server
