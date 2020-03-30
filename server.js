@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/news", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/news", { useNewUrlParser: true });
 
 //Scrape articles from website and insert into mongo database
 app.get("/scrape", function (req, res) {
@@ -76,7 +76,7 @@ app.get("/Articles", function (req, res) {
 //Route to get a specific atricle and associated notes//
 app.get("/Articles/:id", function (req, res) {
     db.Articles.findOne({ _id: req.params.id})
-    .populate("comments")
+    .populate("comment")
     .then(function(dbArticles) {
         res.json(dbArticles);
     })
@@ -93,7 +93,7 @@ app.post("/Articles/:id", function (req, res) {
     })
     .then(function(dbComments) {
         console.log("comment iD" + dbComments._id);
-        return db.Articles.findOneAndUpdate({ _id: req.params.id}, {$set: {Comment: dbComments._id}}, {new: true});
+        return db.Articles.findOneAndUpdate({ _id: req.params.id}, {$set: {comment: dbComments._id}}, {new: true});
     })
     .then(function(dbArticles){
         console.log ("article" + dbArticles);
