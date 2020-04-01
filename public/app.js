@@ -3,9 +3,8 @@
 // Grab the articles as a json
 $.getJSON("/Articles", function(data) {
 
-    // For each one
-
-
+    console.log(data);
+    
     for (var i = 0; i < data.length; i++) {
         var card = `<div class="card" style="width: 18rem;">
         <div class="card-body">
