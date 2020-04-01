@@ -9,6 +9,13 @@ const cheerio = require('cheerio');
 const axios = require('axios');
 
 var PORT = process.env.PORT || 8080;
+var databaseURL = "news";
+var collections = ["articles"];
+
+//Handlebars package and initiation
+const exhb = require('express-handlebars');
+
+const db = require("./models/");
 
 //Initialize Express
 const app = express();
@@ -21,16 +28,8 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/news";
+var MONGODB_URI = process.env.MONGODB_URI ||"mongodb://localhost/news";
 mongoose.connect(MONGODB_URI);
-
-// var databaseURL = "news";
-// var collections = ["articles"];
-
-//Handlebars package and initiation
-const exhb = require('express-handlebars');
-
-const db = require("./models/");
 
 //Scrape articles from website and insert into mongo database
 app.get("/scrape", function (req, res) {
