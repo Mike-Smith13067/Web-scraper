@@ -9,12 +9,14 @@ var ArticleSchema = new Schema ({
     title: String,
     summary: String,
     link: String,
-    comment: [{
-        type: Schema.Types.ObjectId,
+    isSaved: {type: Boolean, default: false,},
+    created: {type: Date, default:  Date.now},
+    comment: {type: Schema.Types.ObjectId,
         ref: "Comments"
-    }]
+    }
 
 });
+
 var Articles = mongoose.model("Article", ArticleSchema);
 
 module.exports = Articles;

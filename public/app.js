@@ -1,3 +1,5 @@
+
+
 // Grab the articles as a json
 $.getJSON("/Articles", function(data) {
 

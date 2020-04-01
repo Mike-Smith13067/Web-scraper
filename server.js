@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/news", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/news", { useNewUrlParser: true });
 
 //Scrape articles from website and insert into mongo database
 app.get("/scrape", function (req, res) {
