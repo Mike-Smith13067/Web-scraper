@@ -9,20 +9,9 @@ const cheerio = require('cheerio');
 const axios = require('axios');
 
 var PORT = process.env.PORT || 8080;
-// Connect to the Mongo DB
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/news";
-mongoose.connect(MONGODB_URI);
-var databaseURL = "news";
-var collections = ["articles"];
-
-//Handlebars package and initiation
-const exhb = require('express-handlebars');
-
-const db = require("./models/");
 
 //Initialize Express
 const app = express();
-
 // Use morgan logger for logging requests//
 app.use(logger("dev"));
 // Set request body as JSON
@@ -31,11 +20,22 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
+// Connect to the Mongo DB
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/news";
+mongoose.connect(MONGODB_URI);
 
+// var databaseURL = "news";
+// var collections = ["articles"];
+
+//Handlebars package and initiation
+const exhb = require('express-handlebars');
+
+const db = require("./models/");
 
 //Scrape articles from website and insert into mongo database
 app.get("/scrape", function (req, res) {
     axios.get("https://www.nytimes.com/section/sports").then(function (response) {
+        console.log(response);
         var $ = cheerio.load(response.data);
         $("article").each(function (i, element) {
             var title = $(element).find("h2").text();
