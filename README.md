@@ -1,12 +1,23 @@
-# Web-scraper
+# NPR News Scraper
 
-This app will pull news articles from the NY Times sports section and disply them on the page.
+## Heroku Link: 
+https://floating-sierra-79973.herokuapp.com/
 
-Local deployment: https://mike-smith13067.github.io/Web-scraper/
+## Assignment Overview: 
+The NPR News Scraper is an app that uses Mongoose to scrape articles from the NPR website. This app also allows users to save articles to read at a later time, and leave comments. 
 
-Heroku deployment: https://cryptic-oasis-30488.herokuapp.com/
+## Technologies Used: 
+* Materialize 
+* CSS
+* HTML
+* Javascript 
+* Node.js
+* Mongo/Mongoose 
 
-Tools used:
-Mongoose/MongoDB
-Express
-Aios
+## NPM Packages: 
+* Cherrio
+* Express
+* Morgan
+* Axios
+* Express-Handlebars
+* Mongoose 

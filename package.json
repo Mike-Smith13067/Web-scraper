@@ -1,29 +1,29 @@
 {
-  "name": "web-scraper",
+  "name": "newsscraper",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Mike-Smith13067/Web-scraper.git"
+    "url": "git+https://github.com/ahampton10/NewsScraper.git"
   },
-  "author": "Mike Smith",
+  "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Mike-Smith13067/Web-scraper/issues"
+    "url": "https://github.com/ahampton10/NewsScraper/issues"
   },
- 
+  "homepage": "https://github.com/ahampton10/NewsScraper#readme",
   "dependencies": {
     "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
-    "mongoose": "^5.8.11",
+    "mongoose": "^5.9.1",
     "morgan": "^1.9.1"
-  },
-  "devDependencies": {}
+  }
 }
