@@ -9,6 +9,9 @@ const cheerio = require('cheerio');
 const axios = require('axios');
 
 var PORT = process.env.PORT || 8080;
+// Connect to the Mongo DB
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/news";
+mongoose.connect(MONGODB_URI);
 var databaseURL = "news";
 var collections = ["articles"];
 
@@ -28,9 +31,7 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
-// Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI ||"mongodb://localhost/news",);
-mongoose.connect(MONGODB_URI);
+
 
 //Scrape articles from website and insert into mongo database
 app.get("/scrape", function (req, res) {
