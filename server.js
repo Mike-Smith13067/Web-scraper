@@ -42,8 +42,6 @@ app.get("/scrape", function (req, res) {
             var summary = $(element).find("p").text();
             var link = $(element).find("a").attr("href");
 
-            console.log(title, link);
-
             if (title && link) {
                 db.Articles.create({
                     title: title,
@@ -69,7 +67,7 @@ app.get("/scrape", function (req, res) {
 app.get("/Articles", function (req, res) {
     db.Articles.find({})
     .then(function (dbArticles) {
-        res.json(dbArticles);
+        res.render({articles: dbArticles});
     }).catch(function (err) {
         res.json(err);
     });
